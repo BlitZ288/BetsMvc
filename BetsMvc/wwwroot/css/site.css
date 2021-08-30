@@ -79,12 +79,22 @@ body {
 /*content__target*/
 .content__target {
     display: inline-flex;
-    align-items: center;
-    margin-bottom:20px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+.castom__column{
+    margin:0 25px;
+}
+/*Контейнер для вывода статистики */
+.statistics {
+    margin-bottom: 20px;
+    font-size: 16px;
 }
 /*selet__target*/
-.selet__target {
-    width: auto;
-    margin-left: 15px;
-    margin-right: 15px;
+
+/*Подписти */
+.title__select {
+    padding:0 5px;
 }
+
+

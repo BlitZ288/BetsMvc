@@ -41,23 +41,50 @@ namespace BetsMvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Filter(int? kills = 0, int? time = 0, int idTeam = 1)
+        public ActionResult Filter(int? kills = 0, int? time = 0, int idTeam = 1, int? NumberGame=0)
         {
+            int ResultNumberGame = 0;
+            bool flagNull = false;
             List<Map> AllMapsTeam = _myDbContext.Maps.Where(m => m.Game.Teamid == idTeam).ToList();
+            List<Game> Allgames = _myDbContext.Games.Where(g=>g.Team.Id==idTeam).ToList();
             List<Game> games = new List<Game>();
             List<Map> maps = new List<Map>();
             if ( time!=0 && kills!=0)
-            maps = _myDbContext.Maps.ToList().Where(m=>m.Kills>=kills && m.Time>=time).ToList();
-            if (time == 0 && kills != 0)
-            maps = _myDbContext.Maps.ToList().Where(m => m.Kills >= kills).ToList();
+            maps = _myDbContext.Maps.Where(m=>m.Kills>=kills && m.Time>=time && m.Game.Team.Id == idTeam).ToList();
+            if (time == 0 && kills != 0)             
+            maps = _myDbContext.Maps.Where(m => m.Kills >= kills &&m.Game.Team.Id==idTeam).ToList();
             if(time!=0 && kills==0)
-            maps = _myDbContext.Maps.ToList().Where(m => m.Time >= time).ToList();
-
+            maps = _myDbContext.Maps.Where(m => m.Time >= time && m.Game.Team.Id == idTeam).ToList();
+            if (time == 0 && kills == 0)
+            {
+                maps = _myDbContext.Maps.ToList();
+                flagNull = true;
+            }
+                
+                
+           
             foreach (Map m in maps)
             {
                 games.Add(_myDbContext.Games.Find(m.GameId)); 
             }
-            TeamGamesModelView model = new TeamGamesModelView() {  Games = games, Maps = maps };
+            if (NumberGame != 0)
+            {
+                var m = games.ElementAt(1).Maps;
+                games.Where(g => g.Maps.Count >= NumberGame);
+                ResultNumberGame = games.Count * 100 / Allgames.Count;
+
+            }/*Валидация с пустыми приходами */
+            if (flagNull) {
+
+            }
+            int ResultStat = maps.Count * 100 / AllMapsTeam.Count;
+             
+            TeamGamesModelView model = new TeamGamesModelView() {
+                Games = games, 
+                Maps = maps,
+                ResultStatus= ResultStat,
+                ResultStatusNumber = ResultNumberGame == 0 ? 0 : ResultNumberGame
+            };
             ViewData["IdTeam"] = idTeam;
 
             return PartialView("_Filter",model);

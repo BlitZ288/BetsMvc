@@ -1,6 +1,17 @@
 ﻿@model BetsMvc.Models.TeamGamesModelView
+    
+<div class="container statistics">
+    <div class="statistics__target">
+        Статистика команды по данным критериям:
+        <i></i>
+        <span class="text-dark">Время и киллы : @Model.ResultStatus%</span>
+        <span class="text-dark">Сыграно карт  : @Model.ResultStatusNumber%</span>
 
-    @foreach (var g in Model.Games.Where(i => i.Teamid ==Convert.ToInt32(ViewData["IdTeam"].ToString())))
+
+    </div>
+    
+</div>
+    @foreach (var g in Model.Games.Where(i => i.Teamid == Convert.ToInt32(ViewData["IdTeam"].ToString())))
     {
         <a class="btn btn-light card__game" data-toggle="collapse" href="#@g.FirstName@g.SecondName" role="button" aria-expanded="false" aria-controls="collapseExample">
             <table class="table table-striped">
@@ -35,15 +46,17 @@
 
         </a>
         <div class="collapse" id="@g.FirstName@g.SecondName">
+            <label class="card-title"> Было сыграно # </label>
             @foreach (var m in Model.Maps.Where(i => i.GameId == g.Id))
             {
                 <div class="container">
                     <div class="card">
-                        <label class="card-title">Карта </label>
-                        <p class="card-text">Убийства: @m.Kills  Время:@m.Time  </p>
-                        <p class="card-text"> </p>
+                        <div class="card-header">Номер карты </div>
+                        <div class="card-body">
+                            <p class="card-text">Убийств: @m.Kills </p>
+                            <p class="card-text">Время:@m.Time   </p>
+                        </div>
                     </div>
-
                 </div>
 
             }
