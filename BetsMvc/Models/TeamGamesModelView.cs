@@ -11,5 +11,7 @@ namespace BetsMvc.Models
         public List<Team>Teams { get; set; }
         public List<Game>Games { get; set; }
         public List<Map>Maps { get; set; }
+        public int ResulTime { get; set; }
+        public int ResulTKills { get; set; }
     }
 }

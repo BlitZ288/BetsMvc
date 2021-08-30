@@ -20,21 +20,26 @@
                 <div class="col-12 flex-column">
                     
                     <div class="content__target">
-                        <label>Выберите время (больше) </label>
-                        <select class="form-control selet__target" id="time" name="time">
-                            <option selected>Выберите время </option>
-                            <option>39</option>
-                            <option>45</option>
-                            <option>47</option>
-                            <option>48</option>
-                        </select>
-                        <label>Выберите убийств (больше) </label>
-                        <select class="form-control selet__target" id="kills" name="kills">
-                            <option>Выберите время </option>
-                            <option>36</option>
-                            <option>37</option>
-                            <option>46</option>
-                        </select>
+                        <div class="flex-column">
+                            <label>Выберите время (больше) </label>
+                            <select class="form-control selet__target" id="time" name="time">
+                                <option selected>Выберите время </option>
+                                <option>39</option>
+                                <option>45</option>
+                                <option>47</option>
+                                <option>55</option>
+                            </select>
+                        </div>
+                        <div class="flex-column" >
+                            <label>Выберите убийств (больше) </label>
+                            <select class="form-control selet__target" id="kills" name="kills">
+                                <option>Выберите время </option>
+                                <option>36</option>
+                                <option>37</option>
+                                <option>46</option>
+                                <option>68</option>
+                            </select>
+                        </div>
                         <input type="submit" value="Фильтр" class="btn btn-info" />
 
                     </div>                   
@@ -42,16 +47,7 @@
                 </div>
             </form>
             <div id="results">
-                <div class="container statistics">
-                    <div class="statistics__target">
-                        <i></i>
-                        <span class="text-dark"></span>
-                    </div>
-                    <div class="statistics__target">
-                        <i></i>
-                        <span class="text-dark"></span>
-                    </div>
-                </div>
+               
                 @foreach (var g in Model.Games.Where(i => i.Teamid == t.Id))
                 {
                     <a class="btn btn-light card__game" data-toggle="collapse" href="#@g.FirstName@g.SecondName" role="button" aria-expanded="false" aria-controls="collapseExample">

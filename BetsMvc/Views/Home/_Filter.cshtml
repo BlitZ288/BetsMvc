@@ -1,6 +1,18 @@
 ﻿@model BetsMvc.Models.TeamGamesModelView
+   
 
-    @foreach (var g in Model.Games.Where(i => i.Teamid ==Convert.ToInt32(ViewData["IdTeam"].ToString())))
+
+     <div class="container statistics">
+        <div class="statistics__target">
+            <i></i>
+            <span class="text-dark">@Model.ResulTime</span>
+        </div>
+        <div class="statistics__target">
+            <i></i>
+            <span class="text-dark"> @Model.ResulTKills</span>
+        </div>
+    </div>
+    @foreach (var g in Model.Games.Where(i => i.Teamid == Convert.ToInt32(ViewData["IdTeam"].ToString())))
     {
         <a class="btn btn-light card__game" data-toggle="collapse" href="#@g.FirstName@g.SecondName" role="button" aria-expanded="false" aria-controls="collapseExample">
             <table class="table table-striped">

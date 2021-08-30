@@ -79,8 +79,12 @@ body {
 /*content__target*/
 .content__target {
     display: inline-flex;
-    align-items: center;
-    margin-bottom:20px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+.statistics {
+    display: inline-flex;
+
 }
 /*selet__target*/
 .selet__target {

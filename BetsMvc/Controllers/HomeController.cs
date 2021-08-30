@@ -45,19 +45,24 @@ namespace BetsMvc.Controllers
         {
             List<Map> AllMapsTeam = _myDbContext.Maps.Where(m => m.Game.Teamid == idTeam).ToList();
             List<Game> games = new List<Game>();
-            List<Map> maps = new List<Map>();
+            List<Map> maps = new List<Map>();          
             if ( time!=0 && kills!=0)
-            maps = _myDbContext.Maps.ToList().Where(m=>m.Kills>=kills && m.Time>=time).ToList();
+            maps = _myDbContext.Maps.Where(m=>m.Kills>=kills && m.Time>=time && m.Game.Teamid== idTeam).ToList();
             if (time == 0 && kills != 0)
-            maps = _myDbContext.Maps.ToList().Where(m => m.Kills >= kills).ToList();
+            maps = _myDbContext.Maps.Where(m => m.Kills >= kills&& m.Game.Teamid == idTeam).ToList();
             if(time!=0 && kills==0)
-            maps = _myDbContext.Maps.ToList().Where(m => m.Time >= time).ToList();
+            maps = _myDbContext.Maps.Where(m => m.Time >= time&& m.Game.Teamid == idTeam).ToList();
 
             foreach (Map m in maps)
             {
                 games.Add(_myDbContext.Games.Find(m.GameId)); 
             }
-            TeamGamesModelView model = new TeamGamesModelView() {  Games = games, Maps = maps };
+
+            int resulttime = maps.Count() * 100 / AllMapsTeam.Count();
+            int resultkills = maps.Count() * 100 / AllMapsTeam.Count();
+
+
+            TeamGamesModelView model = new TeamGamesModelView() {  Games = games, Maps = maps ,ResulTKills=resultkills,ResulTime=resulttime};
             ViewData["IdTeam"] = idTeam;
 
             return PartialView("_Filter",model);
