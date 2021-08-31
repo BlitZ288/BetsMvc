@@ -23,10 +23,6 @@ namespace BetsMvc.Controllers
 
         public ActionResult Index()
         {
-
-            //TODO фильтрация данных без обновления страницы asp net (stackoverflow)
-            //Ajax запросы вот такие дела , делаем это чтобы не обновлять страницу и списки не скрывались
-
             List<Team> Team = _myDbContext.Teams.ToList();          
             List<Game> games = _myDbContext.Games.ToList();         
             List<Map> maps = _myDbContext.Maps.ToList();          
@@ -57,12 +53,9 @@ namespace BetsMvc.Controllers
             maps = _myDbContext.Maps.Where(m => m.Time >= time && m.Game.Team.Id == idTeam).ToList();
             if (time == 0 && kills == 0)
             {
-                maps = _myDbContext.Maps.ToList();
+                maps = _myDbContext.Maps.Where(m => m.Game.Teamid == idTeam).ToList();
                 flagNull = true;
             }
-                
-                
-           
             foreach (Map m in maps)
             {
                 games.Add(_myDbContext.Games.Find(m.GameId)); 
@@ -70,11 +63,8 @@ namespace BetsMvc.Controllers
             if (NumberGame != 0)
             {
                 var m = games.ElementAt(1).Maps;
-                games.Where(g => g.Maps.Count >= NumberGame);
+                games = games.Where(g => g.Maps.Count >= NumberGame).ToList();
                 ResultNumberGame = games.Count * 100 / Allgames.Count;
-
-            }/*Валидация с пустыми приходами */
-            if (flagNull) {
 
             }
             int ResultStat = maps.Count * 100 / AllMapsTeam.Count;
@@ -83,7 +73,7 @@ namespace BetsMvc.Controllers
                 Games = games, 
                 Maps = maps,
                 ResultStatus= ResultStat,
-                ResultStatusNumber = ResultNumberGame == 0 ? 0 : ResultNumberGame
+                ResultStatusNumber = ResultNumberGame == 100 ? 0 : ResultNumberGame
             };
             ViewData["IdTeam"] = idTeam;
 
