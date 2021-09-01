@@ -20,34 +20,47 @@
                 <div class="col-12 flex-column">
                     
                     <div class="content__target">
-                        <div class="flex-column">
-                            <label>Выберите время (больше) </label>
+                        <div class=" flex-column castom__column">
+                            <label class="title__select">Выберите время (больше) </label>
                             <select class="form-control selet__target" id="time" name="time">
-                                <option selected>Выберите время </option>
+                                <option selected>Не важно  </option>
                                 <option>39</option>
                                 <option>45</option>
                                 <option>47</option>
-                                <option>55</option>
+                                <option>48</option>
                             </select>
                         </div>
-                        <div class="flex-column" >
-                            <label>Выберите убийств (больше) </label>
+                        <div class=" flex-column castom__column">
+                            <label class="title__select">Выберите убийств (больше) </label>
                             <select class="form-control selet__target" id="kills" name="kills">
-                                <option>Выберите время </option>
+                                <option selected>Не важно </option>
                                 <option>36</option>
                                 <option>37</option>
                                 <option>46</option>
-                                <option>68</option>
                             </select>
                         </div>
-                        <input type="submit" value="Фильтр" class="btn btn-info" />
+                        <div class=" flex-column castom__column">
+                            <label class="title__select">Количество карт </label>
+                            <input id="NumberGame" name="NumberGame" class="form-control" type="number" max="4" min="1" maxlength="1" value="1" />
+                           
+                        </div>
 
+                        <input type="submit" value="Фильтр" class="btn btn-info" />
                     </div>                   
                     <input style="display:none" type="number" name="idTeam" value="@t.Id" />
                 </div>
             </form>
             <div id="results">
-               
+                <div class="container statistics">
+                    <div class="statistics__target">
+                        <i></i>
+                        <span class="text-dark"></span>
+                    </div>
+                    <div class="statistics__target">
+                        <i></i>
+                        <span class="text-dark"></span>
+                    </div>
+                </div>
                 @foreach (var g in Model.Games.Where(i => i.Teamid == t.Id))
                 {
                     <a class="btn btn-light card__game" data-toggle="collapse" href="#@g.FirstName@g.SecondName" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -83,15 +96,17 @@
 
                     </a>
                     <div class="collapse" id="@g.FirstName@g.SecondName">
+                        <label class="card-title"> Было сыграно # </label>
                         @foreach (var m in Model.Maps.Where(i => i.GameId == g.Id))
                         {
                             <div class="container">
                                 <div class="card">
-                                    <label class="card-title">Карта </label>
-                                    <p class="card-text">Убийства: @m.Kills  Время:@m.Time  </p>
-                                    <p class="card-text"> </p>
+                                    <div class="card-header">Номер карты </div>
+                                    <div class="card-body">
+                                        <p class="card-text">Убийств: @m.Kills </p>
+                                        <p class="card-text">Время:@m.Time   </p>
+                                    </div>
                                 </div>
-
                             </div>
 
                         }
