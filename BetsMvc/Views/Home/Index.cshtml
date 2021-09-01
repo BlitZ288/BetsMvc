@@ -1,22 +1,21 @@
 ﻿@model BetsMvc.Models.TeamGamesModelView
-@{
-    ViewData["Title"] = "Home Page";
-}
+
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     @foreach (var t in Model.Teams)
-    {
+    { 
         <a class="btn btn-light" data-toggle="collapse" href="#@t.Name" role="button" aria-expanded="false" aria-controls="collapseExample">
 
-            @t.Name
-        </a>
+                    @t.Name
+          </a>
+     
         <div class="collapse contetn__Games" id="@t.Name">
             @{
                 ViewData["IdTeam"] = t.Id;
             }
             
-            <form action="/Home/Filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">
+            <form action="/Home/Filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results_@t.Id" id="form0" method="post">
                 <div class="col-12 flex-column">
                     
                     <div class="content__target">
@@ -50,7 +49,7 @@
                     <input style="display:none" type="number" name="idTeam" value="@t.Id" />
                 </div>
             </form>
-            <div id="results">
+            <div id="results_@t.Id">
                 <div class="container statistics">
                     <div class="statistics__target">
                         <i></i>
