@@ -1,11 +1,11 @@
 ﻿@model BetsMvc.Models.TeamGamesModelView
 
-
+@*TODO Сделать кнопку прехода для сравнение команд *@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     @foreach (var t in Model.Teams)
     { 
-        <a class="btn btn-light" data-toggle="collapse" href="#@t.Name" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <a class="btn btn-light team__card" data-toggle="collapse" href="#@t.Name" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="ActiveTeam(this)">
 
                     @t.Name
           </a>
@@ -118,3 +118,16 @@
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript">
+    function ActiveTeam(Team) {
+        if ($(Team).hasClass("Active___team"))
+        {
+            $(Team).removeClass("Active___team");
+        }
+        else
+        {
+            $(Team).addClass("Active___team");
+        }
+      
+    }
+</script>

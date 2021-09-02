@@ -69,6 +69,11 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+/*buttons with Teams*/
+.Active___team {
+    background-color: #17a2b8;
+    color:#ffff;
+}
 /*Games*/
 .contetn__Games {
     margin-top: 20px;
